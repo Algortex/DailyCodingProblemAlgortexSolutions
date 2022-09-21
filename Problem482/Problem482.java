@@ -28,7 +28,15 @@ public class Problem482 {
           }
         }
         else {
-            return ((root.val >= lowerBound && root.val <= upperBound) ? root.val : 0) + solution(root.left, lowerBound, upperBound) + solution(root.right, lowerBound, upperBound);
+            int result = 0;
+            result += ((root.val >= lowerBound && root.val <= upperBound) ? root.val : 0);
+            if (root.val <= upperBound) {
+              result += solution(root.right, lowerBound, upperBound); // might as well just not bother traversing the other subtree.
+            }
+            if (root.val >= lowerBound) {
+              result += solution(root.left, lowerBound, upperBound); // might as well just not bother traversing the other subtree.
+            }
+           return result;
         }
     }
 }
